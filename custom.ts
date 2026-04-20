@@ -1,3 +1,10 @@
+enum HasItemAmountFilter {
+    //% block="と同じ数"
+    Equal=0,
+    //% block="以上"
+    More=1
+}
+
 //% weight=100 color=#2d76d4 icon="" block="プレイヤー +"
 namespace betterPlayer {
     /**
@@ -15,7 +22,7 @@ namespace betterPlayer {
 namespace betterMob {
     /**
      * プレイヤーのインベントリから特定のアイテムを削除します。
-     * @param target 削除するプレイヤー
+     * @param target プレイヤー
      * @param item アイテム
      * @param amount 個数
      */
@@ -33,7 +40,7 @@ namespace betterMob {
 
     /**
      * プレイヤーの持ち物から特定のアイテムを全て削除します。
-     * @param target 削除するプレイヤー
+     * @param target プレイヤー
      * @param item アイテム
      */
     //% block="$targetの持ち物から$itemを全て削除する"
@@ -58,5 +65,30 @@ namespace betterMob {
         target: TargetSelector,
     ): void {
         player.execute(`clear ${target.toString()}`)
+    }
+
+    /**
+     * エンティティがアイテムを指定した数所持していた場合に真を返します。
+     * @param target エンティティ
+     * @param item アイテム
+     * @param amount 数
+     * @param
+     */
+    //% block="$targetが$item|を$amount個$filter所持している"
+    //% target.shadow=minecraftTarget
+    //% item.shadow=minecraftItem
+    //% inlineInputMode=inline
+    //% group="アイテム"
+    export function hasAmountItem(
+        target: TargetSelector,
+        item: number,
+        amount: number,
+        filter: HasItemAmountFilter
+    ): boolean {
+        target.addRule(
+            'hasItem',
+            `{item:${blocks.nameOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
+        )
+        return player.execute(`testfor ${target.toString()}`)
     }
 }
