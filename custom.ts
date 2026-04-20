@@ -91,9 +91,10 @@ namespace betterMob {
         filter: HasItemAmountFilter
     ): boolean {
         target.addRule(
-            'hasItem',
-            `{item:${idOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
+            'hasitem',
+            `{item=${idOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
         )
+        player.say(target.toString())
         return player.execute(`testfor ${target.toString()}`)
     }
 }
