@@ -5,6 +5,11 @@ enum HasItemAmountFilter {
     More=1
 }
 
+function idOfBlock(block: number) {
+    const name = blocks.nameOfBlock(block);
+    return name.toLowerCase().split(' ').join('_');
+}
+
 //% weight=100 color=#2d76d4 icon="" block="プレイヤー +"
 namespace betterPlayer {
     /**
@@ -35,7 +40,7 @@ namespace betterMob {
         item: number,
         amount: number
     ): void {
-        player.execute(`clear ${target.toString()} ${item.toString()} 0 ${amount}`)
+        player.execute(`clear ${target.toString()} ${idOfBlock(item)} 0 ${amount}`)
     }
 
     /**
@@ -51,7 +56,7 @@ namespace betterMob {
         target: TargetSelector,
         item: number
     ): void {
-        player.execute(`clear ${target.toString()} ${item.toString()}`)
+        player.execute(`clear ${target.toString()} ${idOfBlock(item)}`)
     }
 
     /**
@@ -87,7 +92,7 @@ namespace betterMob {
     ): boolean {
         target.addRule(
             'hasItem',
-            `{item:${blocks.nameOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
+            `{item:${idOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
         )
         return player.execute(`testfor ${target.toString()}`)
     }
