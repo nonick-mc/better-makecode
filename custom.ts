@@ -10,7 +10,7 @@ function idOfBlock(block: number) {
     return name.toLowerCase().split(' ').join('_');
 }
 
-//% weight=100 color=#2d76d4 icon="" block="プレイヤー +"
+//% weight=100 color=#2d76d4 icon="" block="プレイヤー +" advanced=true
 namespace betterPlayer {
     /**
      * コマンドの実行が成功した場合に真を返します。
@@ -22,7 +22,7 @@ namespace betterPlayer {
     }
 }
 
-//% weight=100 color=#7b49c9 icon="" block="モブ +"
+//% weight=99 color=#7b49c9 icon="" block="モブ +" advanced=true
 //% groups="['アイテム']""
 namespace betterMob {
     /**
