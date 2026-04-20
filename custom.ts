@@ -1,38 +1,58 @@
-
-/**
-* このファイルを使って、独自の関数やブロックを定義してください。
-* 詳しくはこちらを参照してください：https://minecraft.makecode.com/blocks/custom
-*/
-
-enum MyEnum {
-    //% block="one"
-    One,
-    //% block="two"
-    Two
+//% weight=100 color=#2d76d4 icon="" block="プレイヤー+"
+namespace betterPlayer {
+    /**
+     * コマンドの実行が成功した場合に真を返します。
+     * @param command 実行するコマンド
+     */
+    //% block="コマンド$command|が成功した"
+    export function isSuccessExecute(command: string): boolean {
+        return player.execute(command)
+    }
 }
 
-/**
- * Custom blocks
- */
-//% weight=100 color=#0fbc11 icon=""
-namespace custom {
+//% weight=100 color=#7b49c9 icon="" block="モブ+"
+namespace betterMob {
     /**
-     * TODO: describe your function here
-     * @param n describe parameter here, eg: 5
-     * @param s describe parameter here, eg: "Hello"
-     * @param e describe parameter here
+     * プレイヤーのインベントリから特定のアイテムを削除します。
+     * @param target 削除するプレイヤー
+     * @param item 削除するアイテム
+     * @param amount 削除する個数
      */
-    //% block
-    export function foo(n: number, s: string, e: MyEnum): void {
-        // Add code here
+    //% block="$targetの持ち物から$itemを$amount個削除する"
+    //% target.defl=0 item.defl=256 amount.min=0
+    export function clearItem(
+        target: TargetSelector,
+        item: Item,
+        amount: number
+    ): void {
+        player.execute(`/clear ${target.toString()} ${item.toString()} 0 ${amount}`)
     }
 
     /**
-     * TODO: describe your function here
-     * @param value describe value here, eg: 5
+     * プレイヤーの持ち物から特定のアイテムを全て削除します。
+     * @param target 削除するプレイヤー
+     * @param item 削除するアイテム
      */
-    //% block
-    export function fib(value: number): number {
-        return value <= 1 ? value : fib(value -1) + fib(value - 2);
+    //% block="$targetの持ち物から$itemを全て削除する"
+    //% target.defl=0 item.defl=256
+    export function clearItem_All(
+        target: TargetSelector,
+        item: number
+    ): void {
+        player.execute(`/clear ${target.toString()} ${item.toString()}`)
+    }
+
+    /**
+     * プレイヤーの持ち物から全てのアイテムを削除します。
+     * @param target 削除するプレイヤー
+     * @param item 削除するアイテム
+     */
+    //% block="$targetの持ち物を全て削除する"
+    //% target.defl=0
+    export function clearAllItem(
+        target: TargetSelector,
+        item: number
+    ): void {
+        player.execute(`/clear ${target.toString()}`)
     }
 }
