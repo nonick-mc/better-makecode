@@ -94,7 +94,6 @@ namespace betterMob {
             'hasitem',
             `{item=${idOfBlock(item)},quantity=${amount}${filter ? '..' : ''}}`
         )
-        player.say(target.toString())
         return player.execute(`testfor ${target.toString()}`)
     }
 }
